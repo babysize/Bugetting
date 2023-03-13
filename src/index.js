@@ -11,7 +11,7 @@ class Bodgeting extends React.Component {
         <Grid item xs={1}>
           <ControlsButton></ControlsButton>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <Operations></Operations>
         </Grid>
       </Grid>

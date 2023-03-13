@@ -1,19 +1,11 @@
 import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import ControlButton from './ControlsButton/ControlsButton';
 
-function ControlsButton(props) {
+export default function ControlsButton(props) {
   return (
     <Stack>
-      <IconButton>
-        <AddBoxIcon color='success'></AddBoxIcon>
-      </IconButton>   
-      <IconButton>
-        <IndeterminateCheckBoxIcon color='error'></IndeterminateCheckBoxIcon>
-      </IconButton>  
+       <ControlButton type={"income"}></ControlButton>
+       <ControlButton type={"expend"}></ControlButton>
     </Stack> 
   )
 }
-
-export default ControlsButton
