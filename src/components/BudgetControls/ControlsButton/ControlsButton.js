@@ -14,6 +14,7 @@ export default function ControlButton(props) {
     case "expend":
       icon = <IndeterminateCheckBoxIcon color='error'></IndeterminateCheckBoxIcon>
       break;
+    default: break;
   }
 
   const [open, setOpen] = React.useState(false)
@@ -35,7 +36,7 @@ export default function ControlButton(props) {
         type={props.type}
         open={open}
         handleClose={handleClose}
-        AddOperation={(operation) => props.AddOperation(operation)}>
+        >
       </FormDialog>
     </>
   )
