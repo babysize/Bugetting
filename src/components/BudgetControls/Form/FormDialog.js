@@ -1,23 +1,22 @@
 import Dialog from '@mui/material/Dialog';
 import { DialogContent, DialogTitle, TextField, DialogActions,Button } from '@mui/material';
 import { connect } from 'react-redux';
-import { addOperation } from '../../../redux/actions';
+import { addOperation, changeVisibilityForm } from '../../../redux/actions';
 
 
-function createData(callback) {
+function createData() {
   const id = Date.now().toString()
   const date = document.querySelector("#field-date").value.toString()
   const value = document.querySelector("#field-value").value
   const description = document.querySelector("#field-description").value
   const newOperation = { id, date, value, description }
-  
-  callback()
+    
   return newOperation
 }
 
-const FormDialog = (props) => {
+const FormDialog = ({open, addOperation,changeVisibilityForm}) => {
   return (
-    <Dialog open={props.open} onClose={props.handleClose}>
+    <Dialog open={open} onClose={changeVisibilityForm}>
       <DialogTitle>Add operation</DialogTitle>
       <DialogContent>
         <TextField sx={{mr:2}}
@@ -25,6 +24,7 @@ const FormDialog = (props) => {
           label=" "
           variant="standard"
           type="date"
+          onChange={e => console.log(e.target.value)}
         />
         <TextField 
           id="field-value"
@@ -32,19 +32,24 @@ const FormDialog = (props) => {
           label="value"
           variant="standard"
           type="number"
+          onChange={e => console.log(e.target.value)}
         />
         <TextField
           id="field-description"
           label="description"
           variant="standard"
           fullWidth
+          onChange={e => console.log(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={changeVisibilityForm} color="primary">
           cancel
         </Button>
-        <Button onClick={() => props.addOperation(createData(props.handleClose))}
+        <Button onClick={() => {
+          changeVisibilityForm()
+          addOperation(createData())
+        }}
                 color="primary">
           add
         </Button>
@@ -53,8 +58,15 @@ const FormDialog = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  addOperation
+const mapStateToProps = state => {
+  return {
+    open: state.form.isOpen
+  }
 }
 
-export default connect(null, mapDispatchToProps)(FormDialog)
+const mapDispatchToProps = {
+  addOperation: () => addOperation(createData()),
+  changeVisibilityForm
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormDialog)

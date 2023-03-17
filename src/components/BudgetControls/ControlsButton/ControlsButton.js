@@ -3,41 +3,34 @@ import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import FormDialog from '../Form/FormDialog';
+import { connect } from 'react-redux';
+import { changeVisibilityForm } from '../../../redux/actions';
 
-export default function ControlButton(props) {
+const ControlButton = (props) => {
   let icon
   switch (props.type) {
-    case "income":
+    case "+":
       icon = <AddBoxIcon color='success'></AddBoxIcon>
       break;
 
-    case "expend":
+    case "-":
       icon = <IndeterminateCheckBoxIcon color='error'></IndeterminateCheckBoxIcon>
       break;
     default: break;
   }
 
-  const [open, setOpen] = React.useState(false)
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={() => props.changeVisibilityForm()}>
         {icon}
       </IconButton>
-      <FormDialog
-        type={props.type}
-        open={open}
-        handleClose={handleClose}
-        >
-      </FormDialog>
+      <FormDialog></FormDialog>
     </>
   )
 }
+
+const mapDispatchToProps = {
+  changeVisibilityForm 
+}
+
+export default connect(null, mapDispatchToProps)(ControlButton)
