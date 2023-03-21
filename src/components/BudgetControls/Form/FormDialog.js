@@ -1,22 +1,19 @@
 import Dialog from '@mui/material/Dialog';
 import { DialogContent, DialogTitle, TextField, DialogActions,Button } from '@mui/material';
 import { connect } from 'react-redux';
-import { addOperation, changeVisibilityForm } from '../../../redux/actions';
+import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm } from '../../../redux/actions';
 
-
-function createData() {
+function createData(date, value, description) {
   const id = Date.now().toString()
-  const date = document.querySelector("#field-date").value.toString()
-  const value = document.querySelector("#field-value").value
-  const description = document.querySelector("#field-description").value
-  const newOperation = { id, date, value, description }
-    
-  return newOperation
+  return { id, date, value, description }
 }
 
-const FormDialog = ({open, addOperation,changeVisibilityForm}) => {
+const FormDialog = (props) => {
   return (
-    <Dialog open={open} onClose={changeVisibilityForm}>
+    <Dialog open={props.open} onClose={() =>{
+      props.changeVisibilityForm()
+      props.clearForm()
+    }}>
       <DialogTitle>Add operation</DialogTitle>
       <DialogContent>
         <TextField sx={{mr:2}}
@@ -24,7 +21,8 @@ const FormDialog = ({open, addOperation,changeVisibilityForm}) => {
           label=" "
           variant="standard"
           type="date"
-          onChange={e => console.log(e.target.value)}
+          value={props.date}
+          onChange={(e) => props.changeDate(e.target.value).toString()}
         />
         <TextField 
           id="field-value"
@@ -32,26 +30,32 @@ const FormDialog = ({open, addOperation,changeVisibilityForm}) => {
           label="value"
           variant="standard"
           type="number"
-          onChange={e => console.log(e.target.value)}
+          value={props.value}
+          onChange={(e) => props.changeValue(e.target.value)}
         />
         <TextField
           id="field-description"
           label="description"
           variant="standard"
           fullWidth
-          onChange={e => console.log(e.target.value)}
+          value={props.description}
+          onChange={(e) => props.changeDescrption(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={changeVisibilityForm} color="primary">
+        <Button onClick={() =>{
+          props.changeVisibilityForm()
+          props.clearForm()
+        }} color="primary">
           cancel
         </Button>
         <Button onClick={() => {
-          changeVisibilityForm()
-          addOperation(createData())
-        }}
-                color="primary">
-          add
+          props.changeVisibilityForm()
+          props.addOperation(createData(props.date, props.value, props.description))
+          props.clearForm()
+          }}
+          color="primary">
+            add
         </Button>
       </DialogActions>
     </Dialog>  
@@ -60,13 +64,20 @@ const FormDialog = ({open, addOperation,changeVisibilityForm}) => {
 
 const mapStateToProps = state => {
   return {
-    open: state.form.isOpen
+    open: state.form.isOpen,
+    date: state.form.date,
+    value: state.form.value,
+    description: state.form.description
   }
 }
 
 const mapDispatchToProps = {
-  addOperation: () => addOperation(createData()),
-  changeVisibilityForm
+  addOperation,
+  changeVisibilityForm,
+  changeDate,
+  changeValue,
+  changeDescrption,
+  clearForm
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDialog)
