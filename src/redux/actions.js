@@ -1,4 +1,4 @@
-import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
 
 export function addOperation(operation) {
   return {
@@ -44,5 +44,17 @@ export function changeDescrption(description) {
 export function clearForm() {
   return {
     type: CLEAR_FORM
+  }
+}
+
+export function createIncome() {
+  return {
+    type: CREATE_INCOME
+  }
+}
+
+export function createExpence() {
+  return {
+    type: CREATE_EXPENCE
   }
 }

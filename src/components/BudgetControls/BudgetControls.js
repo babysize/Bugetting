@@ -1,11 +1,14 @@
 import Stack from '@mui/material/Stack';
-import ControlButton from './ControlsButton/ControlsButton';
+import IncomeButton from './ControlsButton/IncomeButton';
+import ExpenceButton from './ControlsButton/ExpenceButton';
+import FormDialog from './Form/FormDialog';
 
 export default function BudgetControls(props) {
   return (
     <Stack alignItems="center">
-       <ControlButton type={"+"}></ControlButton>
-       <ControlButton type={"-"}></ControlButton>
+       <IncomeButton></IncomeButton>
+       <ExpenceButton></ExpenceButton>
+       <FormDialog></FormDialog>
     </Stack> 
   )
 }

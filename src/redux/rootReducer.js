@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
 
 const initialOperationState = {
     operationsList: []
@@ -20,7 +20,8 @@ const initialForm = {
   value:'',
   description:'',
   category: '',
-  categoryList: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина']
+  categoryList: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина'],
+  type: ''
 }
 
 function formReducer(state = initialForm, action) {
@@ -36,7 +37,11 @@ function formReducer(state = initialForm, action) {
     case CHANGE_DESCRIPTION:
       return {...state, description: action.payload}
     case CLEAR_FORM:
-      return {...state, date: '', value: '', description: '', category: ''}
+      return {...state, date: '', value: '', description: '', category: '', type: ''}
+    case CREATE_INCOME:
+      return {...state, type: 'income'}
+    case CREATE_EXPENCE:
+      return {...state, type: 'expence'}
     default: return state
   }
 }

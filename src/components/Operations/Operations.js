@@ -6,24 +6,28 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { connect } from 'react-redux';
+import useStyles from './Operation.style';
 
-const Operations = ({operation}) => {
+const Operations = (props) => {
+  const {classes} = useStyles()
   return(
     <TableContainer component={Paper} sx={{height: "50vh"}}>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell align='right'>Date</TableCell>
-            <TableCell align='center'>Value </TableCell>
+            <TableCell>Value </TableCell>
             <TableCell>Category</TableCell>
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          { operation.map((row) => (
+          { props.operation.map((row) => (
             <TableRow key={row.id}>
               <TableCell align='right'>{row.date}</TableCell>
-              <TableCell align='center'>{row.value}</TableCell>
+              <TableCell className={row.type == 'income' ? classes['income'] : classes['expence']}>
+                {row.type == 'income' ? '+'+row.value : '-'+row.value}
+              </TableCell>
               <TableCell>{row.category}</TableCell>
               <TableCell>{row.description}</TableCell>
             </TableRow>
@@ -36,7 +40,7 @@ const Operations = ({operation}) => {
 
 const mapStateToProps = state => {
   return {
-    operation: state.operations.operationsList
+    operation: state.operations.operationsList,
   }
 }
 

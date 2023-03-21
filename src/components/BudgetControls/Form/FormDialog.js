@@ -3,9 +3,9 @@ import { DialogContent, DialogTitle, TextField, DialogActions,Button, Select, Me
 import { connect } from 'react-redux';
 import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm, changeCategory } from '../../../redux/actions';
 
-function createData(date, value, category, description) {
+function createData(date, value, category, description, type) {
   const id = Date.now().toString()
-  return { id, date, value, category, description }
+  return { id, date, value, category, description, type }
 }
 
 const FormDialog = (props) => {
@@ -39,9 +39,9 @@ const FormDialog = (props) => {
           value={props.category}
           onChange={(e) => props.changeCategory(e.target.value)}
         >
-          { props.categoryList.map((category) => {
-            return <MenuItem value={category}>{category}</MenuItem>
-          })}
+          { props.categoryList.map((category) => (
+             <MenuItem value={category}>{category}</MenuItem>
+          ))}
         </Select>
         <TextField
           id="field-description"
@@ -61,7 +61,7 @@ const FormDialog = (props) => {
         </Button>
         <Button onClick={() => {
           props.changeVisibilityForm()
-          props.addOperation(createData(props.date, props.value, props.category, props.description))
+          props.addOperation(createData(props.date, props.value, props.category, props.description, props.type))
           props.clearForm()
           }}
           color="primary">
@@ -80,6 +80,7 @@ const mapStateToProps = state => {
     category: state.form.category,
     description: state.form.description,
     categoryList: state.form.categoryList,
+    type: state.form.type
   }
 }
 
