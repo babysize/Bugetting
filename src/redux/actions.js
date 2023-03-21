@@ -1,4 +1,4 @@
-import { ADD_OPERATION, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
 
 export function addOperation(operation) {
   return {
@@ -27,6 +27,13 @@ export function changeValue(value) {
   }
 }
 
+export function changeCategory(category) {
+  return {
+    type: CHANGE_CATEGORY,
+    payload: category
+  }
+}
+
 export function changeDescrption(description) {
   return {
     type: CHANGE_DESCRIPTION,
@@ -37,12 +44,5 @@ export function changeDescrption(description) {
 export function clearForm() {
   return {
     type: CLEAR_FORM
-  }
-}
-
-export const clearAndCloseForm = () => {
-  return (dispatch) => {
-    dispatch(changeVisibilityForm)
-    dispatch(clearForm)
   }
 }

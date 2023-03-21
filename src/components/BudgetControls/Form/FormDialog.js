@@ -1,11 +1,11 @@
 import Dialog from '@mui/material/Dialog';
-import { DialogContent, DialogTitle, TextField, DialogActions,Button } from '@mui/material';
+import { DialogContent, DialogTitle, TextField, DialogActions,Button, Select, MenuItem } from '@mui/material';
 import { connect } from 'react-redux';
-import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm } from '../../../redux/actions';
+import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm, changeCategory } from '../../../redux/actions';
 
-function createData(date, value, description) {
+function createData(date, value, category, description) {
   const id = Date.now().toString()
-  return { id, date, value, description }
+  return { id, date, value, category, description }
 }
 
 const FormDialog = (props) => {
@@ -18,21 +18,31 @@ const FormDialog = (props) => {
       <DialogContent>
         <TextField sx={{mr:2}}
           id="field-date"
+          autoFocus
           label=" "
           variant="standard"
           type="date"
           value={props.date}
           onChange={(e) => props.changeDate(e.target.value).toString()}
         />
-        <TextField 
+        <TextField sx={{mr:2}}
           id="field-value"
-          autoFocus
           label="value"
           variant="standard"
           type="number"
           value={props.value}
           onChange={(e) => props.changeValue(e.target.value)}
         />
+        <Select  sx={{ minWidth: 120 }}
+          id="field-category"
+          label="category"
+          value={props.category}
+          onChange={(e) => props.changeCategory(e.target.value)}
+        >
+          { props.categoryList.map((category) => {
+            return <MenuItem value={category}>{category}</MenuItem>
+          })}
+        </Select>
         <TextField
           id="field-description"
           label="description"
@@ -51,7 +61,7 @@ const FormDialog = (props) => {
         </Button>
         <Button onClick={() => {
           props.changeVisibilityForm()
-          props.addOperation(createData(props.date, props.value, props.description))
+          props.addOperation(createData(props.date, props.value, props.category, props.description))
           props.clearForm()
           }}
           color="primary">
@@ -67,7 +77,9 @@ const mapStateToProps = state => {
     open: state.form.isOpen,
     date: state.form.date,
     value: state.form.value,
-    description: state.form.description
+    category: state.form.category,
+    description: state.form.description,
+    categoryList: state.form.categoryList,
   }
 }
 
@@ -76,6 +88,7 @@ const mapDispatchToProps = {
   changeVisibilityForm,
   changeDate,
   changeValue,
+  changeCategory,
   changeDescrption,
   clearForm
 }

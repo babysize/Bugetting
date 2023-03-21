@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ADD_OPERATION, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM } from "./types";
 
 const initialOperationState = {
     operationsList: []
@@ -18,7 +18,9 @@ const initialForm = {
   isOpen: false,
   date:'',
   value:'',
-  description:''
+  description:'',
+  category: '',
+  categoryList: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина']
 }
 
 function formReducer(state = initialForm, action) {
@@ -29,10 +31,12 @@ function formReducer(state = initialForm, action) {
       return {...state, date: action.payload}
     case CHANGE_VALUE:
       return {...state, value: action.payload}
+    case CHANGE_CATEGORY:
+      return {...state, category: action.payload}
     case CHANGE_DESCRIPTION:
       return {...state, description: action.payload}
     case CLEAR_FORM:
-      return {...state, date: '', value: '', description: ''}
+      return {...state, date: '', value: '', description: '', category: ''}
     default: return state
   }
 }

@@ -15,6 +15,7 @@ const Operations = ({operation}) => {
           <TableRow>
             <TableCell align='right'>Date</TableCell>
             <TableCell align='center'>Value </TableCell>
+            <TableCell>Category</TableCell>
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
@@ -23,6 +24,7 @@ const Operations = ({operation}) => {
             <TableRow key={row.id}>
               <TableCell align='right'>{row.date}</TableCell>
               <TableCell align='center'>{row.value}</TableCell>
+              <TableCell>{row.category}</TableCell>
               <TableCell>{row.description}</TableCell>
             </TableRow>
           ))}
