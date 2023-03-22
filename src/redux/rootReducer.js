@@ -9,7 +9,6 @@ function operationsReducer(state = initialOperationState, action) {
   switch (action.type) {
     case ADD_OPERATION:
       return {...state, operationsList: state.operationsList.concat([action.payload])}
-      //{...state, operationsList: [...state.operationsList,action.payload]}
     default: return state
   }
 }
@@ -20,7 +19,8 @@ const initialForm = {
   value:'',
   description:'',
   category: '',
-  categoryList: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина'],
+  categoryforExpence: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина', 'Транспорт'],
+  categoriesForIncome: ['Зарплата', 'Вклад', 'Пособие'],
   type: ''
 }
 

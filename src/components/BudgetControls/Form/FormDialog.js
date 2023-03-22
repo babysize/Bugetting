@@ -9,6 +9,7 @@ function createData(date, value, category, description, type) {
 }
 
 const FormDialog = (props) => {
+  const categoryList = props.type == 'income' ? props.categoriesForIncome : props.categoryforExpence
   return (
     <Dialog open={props.open} onClose={() =>{
       props.changeVisibilityForm()
@@ -39,7 +40,7 @@ const FormDialog = (props) => {
           value={props.category}
           onChange={(e) => props.changeCategory(e.target.value)}
         >
-          { props.categoryList.map((category) => (
+          { categoryList.map((category) => (
              <MenuItem value={category}>{category}</MenuItem>
           ))}
         </Select>
@@ -79,7 +80,8 @@ const mapStateToProps = state => {
     value: state.form.value,
     category: state.form.category,
     description: state.form.description,
-    categoryList: state.form.categoryList,
+    categoryforExpence: state.form.categoryforExpence,
+    categoriesForIncome: state.form.categoriesForIncome,
     type: state.form.type
   }
 }
