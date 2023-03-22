@@ -1,3 +1,4 @@
+import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
 
@@ -5,13 +6,12 @@ const initialOperationState = {
     operationsList: []
 }
 
-function operationsReducer(state = initialOperationState, action) {
-  switch (action.type) {
-    case ADD_OPERATION:
-      return {...state, operationsList: state.operationsList.concat([action.payload])}
-    default: return state
-  }
-}
+const operationsReducer = createReducer(initialOperationState, (builder) => {
+  builder
+    .addCase(ADD_OPERATION, (state, action) => {
+      state.operationsList.push(action.payload)
+    })
+})
 
 const initialForm = {
   isOpen: false,
@@ -24,27 +24,37 @@ const initialForm = {
   type: ''
 }
 
-function formReducer(state = initialForm, action) {
-  switch (action.type) {
-    case CHANGE_VISIBILITY:
-      return {...state, isOpen: !state.isOpen}
-    case CHANGE_DATE:
-      return {...state, date: action.payload}
-    case CHANGE_VALUE:
-      return {...state, value: action.payload}
-    case CHANGE_CATEGORY:
-      return {...state, category: action.payload}
-    case CHANGE_DESCRIPTION:
-      return {...state, description: action.payload}
-    case CLEAR_FORM:
-      return {...state, date: '', value: '', description: '', category: '', type: ''}
-    case CREATE_INCOME:
-      return {...state, type: 'income'}
-    case CREATE_EXPENCE:
-      return {...state, type: 'expence'}
-    default: return state
-  }
-}
+const formReducer = createReducer(initialForm, (builder) => {
+  builder
+    .addCase(CHANGE_VISIBILITY, (state) => {
+      state.isOpen = !state.isOpen
+    })
+    .addCase(CHANGE_DATE, (state, action) => {
+      state.date = action.payload
+    })
+    .addCase(CHANGE_VALUE, (state, action) => {
+      state.value = action.payload
+    })
+    .addCase(CHANGE_CATEGORY, (state, action) => {
+      state.category = action.payload
+    })
+    .addCase(CHANGE_DESCRIPTION, (state, action) => {
+      state.description = action.payload
+    })
+    .addCase(CLEAR_FORM, (state) => {
+      state.date = ''
+      state.value = ''
+      state.description = ''
+      state.category = ''
+      state.type = ''
+    })
+    .addCase(CREATE_INCOME, (state) => {
+      state.type = 'income'
+    })
+    .addCase(CREATE_EXPENCE, (state) => {
+      state.type = 'expence'
+    })
+})
 
 export const rootReducer = combineReducers({
   operations: operationsReducer,
