@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import { DialogContent, DialogTitle, TextField, DialogActions,Button, Select, MenuItem } from '@mui/material';
 import { connect } from 'react-redux';
-import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm, changeCategory } from '../../../redux/actions';
+import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDescrption, clearForm, changeCategory, checkValue } from '../../../redux/actions';
 
 function createData(date, value, category, description, type) {
   const id = Date.now().toString()
@@ -11,6 +11,7 @@ function createData(date, value, category, description, type) {
 
 const FormDialog = (props) => {
   const categoryList = props.type == 'income' ? props.categoriesForIncome : props.categoryforExpence
+
   return (
     <Dialog open={props.open} onClose={() =>{
       props.changeVisibilityForm()
@@ -31,9 +32,10 @@ const FormDialog = (props) => {
           id="field-value"
           label="value"
           variant="standard"
-          type="number"
+          error={props.isErrorOfValue}
           value={props.value}
           onChange={(e) => props.changeValue(e.target.value)}
+          onBlur={() => props.checkValue()}
         />
         <Select  sx={{ minWidth: 120 }}
           id="field-category"
@@ -62,10 +64,11 @@ const FormDialog = (props) => {
           cancel
         </Button>
         <Button onClick={() => {
-          props.changeVisibilityForm()
-          props.addOperation(createData(props.date, props.value, props.category, props.description, props.type))
-          props.clearForm()
-          }}
+          if(!props.isErrorOfValue){
+            props.changeVisibilityForm()
+            props.addOperation(createData(props.date, props.value, props.category, props.description, props.type))
+            props.clearForm()
+          }}}
           color="primary">
             add
         </Button>
@@ -83,7 +86,8 @@ const mapStateToProps = state => {
     description: state.form.description,
     categoryforExpence: state.form.categoryforExpence,
     categoriesForIncome: state.form.categoriesForIncome,
-    type: state.form.type
+    type: state.form.type,
+    isErrorOfValue: state.form.isErrorOfValue,
   }
 }
 
@@ -95,6 +99,7 @@ const mapDispatchToProps = {
   changeCategory,
   changeDescrption,
   clearForm,
+  checkValue,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDialog)
