@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CHECK_CATEGORY, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
 
 const initialOperationState = {
     operationsList: []
@@ -19,7 +19,7 @@ const initialForm = {
   value:'',
   description:'',
   category: '',
-  categoryforExpence: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина', 'Транспорт'],
+  categoryforExpence: ['Продукты', 'Дом', 'Кафе и рестораны', 'Одежда', 'Медицина', 'Транспорт','Разное'],
   categoriesForIncome: ['Зарплата', 'Вклад', 'Пособие'],
   type: ''
 }

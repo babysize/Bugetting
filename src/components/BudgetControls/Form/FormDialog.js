@@ -5,6 +5,7 @@ import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDesc
 
 function createData(date, value, category, description, type) {
   const id = Date.now().toString()
+  category = category == '' ? 'Разное' : category 
   return { id, date, value, category, description, type }
 }
 
@@ -93,7 +94,7 @@ const mapDispatchToProps = {
   changeValue,
   changeCategory,
   changeDescrption,
-  clearForm
+  clearForm,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDialog)
