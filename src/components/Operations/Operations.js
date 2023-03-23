@@ -26,7 +26,7 @@ const Operations = (props) => {
             <TableRow key={row.id}>
               <TableCell align='right'>{row.date}</TableCell>
               <TableCell className={row.type == 'income' ? classes['income'] : classes['expence']}>
-                {row.type == 'income' ? '+'+row.value : '-'+row.value}
+                {row.value}
               </TableCell>
               <TableCell>{row.category}</TableCell>
               <TableCell>{row.description}</TableCell>
