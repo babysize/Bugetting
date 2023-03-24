@@ -25,7 +25,7 @@ const Operations = (props) => {
           { props.operation.map((row) => (
             <TableRow key={row.id}>
               <TableCell align='right'>{row.date}</TableCell>
-              <TableCell className={row.type == 'income' ? classes['income'] : classes['expence']}>
+              <TableCell className={row.type === 'income' ? classes['income'] : classes['expence']}>
                 {row.value}
               </TableCell>
               <TableCell>{row.category}</TableCell>

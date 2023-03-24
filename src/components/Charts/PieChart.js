@@ -8,7 +8,7 @@ const CalculateSumForCategory = (category, operations) => {
   }).map(operation => {
     return operation.value
   }).reduce((sum, curr) => {
-    return sum+curr
+    return Math.round((sum+Number(curr)+Number.EPSILON)*100)/100
   }, 0)
   return values
 }

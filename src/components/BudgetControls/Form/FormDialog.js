@@ -5,12 +5,12 @@ import { addOperation, changeVisibilityForm, changeDate, changeValue, changeDesc
 
 function createData(date, value, category, description, type) {
   const id = Date.now().toString()
-  category = category == '' ? 'Разное' : category 
+  category = category === '' ? 'Разное' : category 
   return { id, date, value, category, description, type }
 }
 
 const FormDialog = (props) => {
-  const categoryList = props.type == 'income' ? props.categoriesForIncome : props.categoryforExpence
+  const categoryList = props.type === 'income' ? props.categoriesForIncome : props.categoryforExpence
 
   return (
     <Dialog open={props.open} onClose={() =>{
