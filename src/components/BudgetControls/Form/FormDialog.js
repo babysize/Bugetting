@@ -72,7 +72,7 @@ const FormDialog = (props) => {
           cancel
         </Button>
         <Button onClick={() => {
-          if (!props.isErrorOfValue) {
+          if (!props.isErrorOfValue && !props.isErrorOfDate) {
             props.changeVisibilityForm()
             props.addOperation(createData(props.date, props.value, props.category, props.description, props.type))
             props.clearForm()

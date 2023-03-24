@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CHECK_DATE, CHECK_VALUE, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME } from "./types";
+import { ADD_OPERATION, CHANGE_CATEGORY, CHANGE_DATE, CHANGE_DESCRIPTION, CHANGE_VALUE, CHANGE_VISIBILITY, CHECK_DATE, CHECK_VALUE, CLEAR_FORM, CREATE_EXPENCE, CREATE_INCOME, DELETE_OPERATION } from "./types";
 
 const initialOperationState = {
     operationsList: []
@@ -10,6 +10,9 @@ const operationsReducer = createReducer(initialOperationState, (builder) => {
   builder
     .addCase(ADD_OPERATION, (state, action) => {
       state.operationsList.push(action.payload)
+    })
+    .addCase(DELETE_OPERATION, (state, action) => {
+      state.operationsList = state.operationsList.filter(operation => operation.id !== action.payload)
     })
 })
 
