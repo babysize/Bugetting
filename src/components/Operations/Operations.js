@@ -15,16 +15,16 @@ const Operations = (props) => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell align='right'>Date</TableCell>
-            <TableCell>Value </TableCell>
-            <TableCell>Category</TableCell>
+            <TableCell sx={{width:'8%'}}>Date</TableCell>
+            <TableCell sx={{width:'5%'}}>Value </TableCell>
+            <TableCell sx={{width:'10%'}}>Category</TableCell>
             <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           { props.operation.map((row) => (
             <TableRow key={row.id}>
-              <TableCell align='right'>{row.date}</TableCell>
+              <TableCell>{row.date}</TableCell>
               <TableCell className={row.type === 'income' ? classes['income'] : classes['expence']}>
                 {row.value}
               </TableCell>
