@@ -11,7 +11,7 @@ import useStyles from './Operation.style';
 const Operations = (props) => {
   const {classes} = useStyles()
   return(
-    <TableContainer component={Paper} sx={{height: "50vh"}}>
+    <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
           <TableRow>

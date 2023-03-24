@@ -18,11 +18,11 @@ class Bodgeting extends React.Component {
   render(){
     return(
       <Provider store={store}>
-      <Grid container>
+      <Grid container sx={{height: "30vh", marginBottom: 5}}>
         <Grid item xs={1}>
           <BudgetControls></BudgetControls>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <PieChartByCategory></PieChartByCategory>
         </Grid>
       </Grid>

@@ -13,10 +13,11 @@ const CalculateSumForCategory = (category, operations) => {
   return values
 }
 
-const PieChartByCategory = (props) => {
-  const sum = props.categories.map(category => {
-    return CalculateSumForCategory(category, props.operations)
-  })
+  const PieChartByCategory = (props) => {
+    const sum = props.categories.map(category => {
+      return CalculateSumForCategory(category, props.operations)
+    }
+  )
 
   const pieChartData = {
     labels: props.categories,
@@ -25,8 +26,27 @@ const PieChartByCategory = (props) => {
     }]
   }
 
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+        //position: 'right',
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            let label = ''
+            if (context.parsed) label += (context.parsed * 100 / context.dataset.data.reduce((a, b) => a + b)).toFixed(2) + '%'
+            return label
+          }
+        }
+      },
+    }
+  }
+  
   return (
-      <Doughnut data={pieChartData} />
+    <Doughnut data={pieChartData} options={options}/>
   )
 }
 
