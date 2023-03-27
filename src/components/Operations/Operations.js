@@ -7,9 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { connect } from 'react-redux';
 import useStyles from './Operation.style';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteOperation } from '../../redux/actions';
+import DeleteButton from './DeleteButton';
 
 const Operations = (props) => {
   const {classes} = useStyles()
@@ -34,10 +32,8 @@ const Operations = (props) => {
               </TableCell>
               <TableCell>{row.category}</TableCell>
               <TableCell>{row.description}</TableCell>
-              <TableCell>
-                <IconButton onClick={() => props.deleteOperation(row.id)}>
-                  <DeleteIcon/>
-                </IconButton>
+              <TableCell align='right'>
+                <DeleteButton id={row.id}></DeleteButton>
               </TableCell>
             </TableRow>
           ))}
@@ -53,8 +49,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {
-  deleteOperation,
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Operations)
+export default connect(mapStateToProps,null)(Operations)
