@@ -22,6 +22,7 @@ const Operations = (props) => {
             <TableCell sx={{width:'5%'}}>Value </TableCell>
             <TableCell sx={{width:'10%'}}>Category</TableCell>
             <TableCell sx={{width:'80%'}}>Description</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

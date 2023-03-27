@@ -52,6 +52,8 @@ const formReducer = createReducer(initialForm, (builder) => {
       state.description = ''
       state.category = ''
       state.type = ''
+      state.isErrorOfDate = false
+      state.isErrorOfValue = false
     })
     .addCase(CREATE_INCOME, (state) => {
       state.type = 'income'
